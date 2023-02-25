@@ -13,11 +13,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
-  
+
+  Repository repo=Repository();
   @override
   Widget build(BuildContext context) {
-    Repository repo=Repository();
+
     SizeConfig().init(context);
     return Scaffold(
       appBar: PreferredSize(
