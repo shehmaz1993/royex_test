@@ -8,7 +8,7 @@ class ModelOfProduct {
   int? width;
   int? height;
   String? src;
-  List<Null>? variantIds;
+  List<void>? variantIds;
   String? adminGraphqlApiId;
 
   ModelOfProduct(

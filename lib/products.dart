@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:royex_test/Models/model_class.dart';
 import 'package:royex_test/repository/repository.dart';
 
