@@ -26,7 +26,9 @@ class _HomePageState extends State<HomePage> {
   }
   @override
   void initState() {
-    loadMap();
+   setState(() {
+     loadMap();
+   });
     // TODO: implement initState
     super.initState();
   }
@@ -309,6 +311,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
+
         ],
       ):const Center(
         child: CircularProgressIndicator(),
@@ -323,6 +326,7 @@ class _HomePageState extends State<HomePage> {
 
         if(snapshot.hasData){
           return Swiper(
+              control: const SwiperControl(),
               viewportFraction: 0.4,
               itemHeight: SizeConfig.blockSizeVertical*5,
               itemWidth: SizeConfig.blockSizeHorizontal*50,

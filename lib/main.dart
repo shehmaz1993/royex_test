@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:royex_test/description.dart';
 import 'package:royex_test/home_screen.dart';
 import 'package:royex_test/products.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: Description(),
     );
   }
 }
