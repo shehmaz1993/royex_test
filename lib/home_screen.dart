@@ -80,8 +80,45 @@ class _HomePageState extends State<HomePage> {
                 height: SizeConfig.blockSizeVertical*22,
                 width: double.infinity,
                 color: Colors.white,
-                child: Image.network(img,height: SizeConfig.blockSizeVertical*3,),
+                child: Image.network(img,),
               ),
+              Padding(
+                padding: EdgeInsets.only(left:SizeConfig.blockSizeHorizontal*34),
+                child: Container(
+                  height: SizeConfig.blockSizeVertical*8,
+                  width: SizeConfig.blockSizeHorizontal*13,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      //shape: BoxShape.circle
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomLeft:Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      )
+                  ),
+                  child: Image.asset('assets/images/70per.png'),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left:SizeConfig.blockSizeHorizontal*90,
+                    top: SizeConfig.blockSizeVertical*10
+                ),
+                child: const Icon(Icons.share,color: Colors.black38,),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left:SizeConfig.blockSizeHorizontal*89,
+                    top: SizeConfig.blockSizeVertical*3
+                ),
+                child: SizedBox(
+                  height: SizeConfig.blockSizeVertical*4,
+                  width: SizeConfig.blockSizeHorizontal*7,
+                  child: Image.asset('assets/images/love.png'),
+                ),
+              ),
+
               Padding(
                 padding:  EdgeInsets.only(top:SizeConfig.blockSizeVertical*23),
                 child: Container(
