@@ -19,19 +19,13 @@ class _DescriptionState extends State<Description> {
 
     String s = "\$";
     int count=1;
-    loadMap()async{
-      map= await repo.fetchMap();
-       setState(() {
-
-       });
-      print("map is $map");
-      return map;
-    }
 
     @override
   void initState() {
-     setState(() {
-       loadMap();
+     repo.fetchMap().then((value){
+       setState(() {
+         map=value;
+       });
      });
      // fetchMap();
     // TODO: implement initState
@@ -44,6 +38,146 @@ class _DescriptionState extends State<Description> {
      // appBar: AppBar(title: Text('description'),),
       body: ListView(
         children: [
+          Stack(
+            children: [
+              Container(
+                height: SizeConfig.blockSizeVertical*22,
+                width: double.infinity,
+                color: Colors.white,
+                child: Image.network(img,height: SizeConfig.blockSizeVertical*3,),
+              ),
+              Padding(
+                padding:  EdgeInsets.only(top:SizeConfig.blockSizeVertical*23),
+                child: Container(
+                    height: SizeConfig.blockSizeVertical*31,
+                    width: double.infinity,
+                    color: Colors.grey[200],
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: SizeConfig.blockSizeVertical*2,
+                          left:SizeConfig.blockSizeHorizontal*4
+                      ),
+                      child: Padding(
+                        padding:  EdgeInsets.only(top:SizeConfig.blockSizeHorizontal*13),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(map!['title'],style: TextStyle(fontSize: SizeConfig.blockSizeVertical*3.3,fontWeight: FontWeight.bold),),
+                            SizedBox(height: SizeConfig.blockSizeVertical*1.7,),
+                            Row(
+                              children: [
+                                Text('Model:',style: TextStyle(fontSize: SizeConfig.blockSizeVertical*3,fontWeight: FontWeight.bold),),
+                                SizedBox(width: SizeConfig.blockSizeHorizontal*2,),
+                                Text(map!['id'].toString(),style: TextStyle(color: Colors.black38,fontSize: SizeConfig.blockSizeVertical*3,fontWeight: FontWeight.bold),)
+                              ],
+                            ),
+                            SizedBox(height: SizeConfig.blockSizeVertical*1.1,),
+                            Row(
+                              children: [
+                                Container(
+                                  height: SizeConfig.blockSizeVertical*4,
+                                  width: SizeConfig.blockSizeHorizontal*20,
+                                  // color: Colors.yellow[900],
+                                  // margin: EdgeInsets.all(100.0),
+                                  decoration: const BoxDecoration(
+                                      color: Colors.orange,
+                                      //shape: BoxShape.circle
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                        bottomLeft:Radius.circular(20),
+                                        bottomRight: Radius.circular(20),
+                                      )
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: SizeConfig.blockSizeHorizontal*2,),
+                                      const Icon(Icons.star,color: Colors.white,),
+                                      SizedBox(width: SizeConfig.blockSizeHorizontal*2,),
+                                      Text('4.8',style: TextStyle(color: Colors.white,fontSize: SizeConfig.blockSizeVertical*2.5),)
+
+
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(width: SizeConfig.blockSizeHorizontal*42,),
+                                Text('Brand :',style: TextStyle(fontSize: SizeConfig.blockSizeVertical*3,fontWeight: FontWeight.bold),),
+                                SizedBox(width: SizeConfig.blockSizeHorizontal*2,),
+                                SizedBox(
+                                    height: SizeConfig.blockSizeVertical*7,
+                                    width: SizeConfig.blockSizeHorizontal*8,
+                                    child: Image.asset('assets/images/al.png',)
+                                ),
+
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text("$s${map!['variants'][0]['price'].toString()} ",style: TextStyle(fontSize: SizeConfig.blockSizeVertical*3,fontWeight: FontWeight.bold),),
+                                SizedBox(width:SizeConfig.blockSizeHorizontal*8),
+                                Text("IQD:",style: TextStyle(fontSize: SizeConfig.blockSizeVertical*3,fontWeight: FontWeight.bold),),
+                                SizedBox(width:SizeConfig.blockSizeHorizontal*1),
+                                Text("${map!['variants'][0]['inventory_item_id'].toString()} ",style: TextStyle(fontSize: SizeConfig.blockSizeVertical*3,fontWeight: FontWeight.bold),)
+                              ],
+                            )
+
+                          ],
+                        ),
+                      ),
+                    )
+                ),
+              ),
+              Padding(
+                padding:  EdgeInsets.only(
+                  top:SizeConfig.blockSizeVertical*15.5,
+                  left: SizeConfig.blockSizeHorizontal*16,
+                  right: SizeConfig.blockSizeHorizontal*16,
+                ),
+                child: SizedBox(
+                  height: SizeConfig.blockSizeVertical*15,
+                  width: SizeConfig.blockSizeHorizontal*70,
+                  //color: Colors.red,
+                  child: fetchProductToShow(),
+                ),
+              ),
+
+            ],
+          ),
+          SizedBox(height: SizeConfig.blockSizeVertical*2,),
+          Padding(
+            padding:  EdgeInsets.only( left:SizeConfig.blockSizeHorizontal*3),
+            child: Row(
+              children: [
+                Container(
+                  color: Colors.orange,
+                  height:SizeConfig.blockSizeVertical*6,
+                  width:SizeConfig.blockSizeHorizontal*30,
+                  child: const Center(
+                    child: Text('Description',style: TextStyle(color: Colors.white),),
+                  ),
+                ),
+                SizedBox(width: SizeConfig.blockSizeHorizontal*3,),
+                Container(
+                  color: Colors.white,
+                  height:SizeConfig.blockSizeVertical*6,
+                  width:SizeConfig.blockSizeHorizontal*30,
+                  child: const Center(
+                    child: Text('Specification',style: TextStyle(color: Colors.black),),
+                  ),
+                ),
+                SizedBox(width: SizeConfig.blockSizeHorizontal*3,),
+                Container(
+                  color: Colors.white,
+                  height:SizeConfig.blockSizeVertical*6,
+                  width:SizeConfig.blockSizeHorizontal*30,
+                  child: const Center(
+                    child: Text('Downloads',style: TextStyle(color: Colors.black),),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: SizeConfig.blockSizeVertical*2,),
            Padding(
              padding:  EdgeInsets.only(
                  left: SizeConfig.blockSizeHorizontal*5,
@@ -131,7 +265,99 @@ class _DescriptionState extends State<Description> {
             ),
           ),
           SizedBox(height: SizeConfig.blockSizeVertical*2,),
-          showRelatedItems(),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+               fetchProductToShowRelatedItems(),
+                fetchProductToShowRelatedItems(),
+              ],
+            ),
+          ),
+          Padding(
+            padding:  EdgeInsets.only( left:SizeConfig.blockSizeHorizontal*3),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: (){
+                    if(count>=1){
+                      setState(() {
+                        count--;
+                      });
+                    }
+                  },
+                  child: Container(
+                    // color: Colors.orange,
+                    height:SizeConfig.blockSizeVertical*6,
+                    width:SizeConfig.blockSizeHorizontal*12,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black12)
+                    ),
+                    child: Center(
+                      child: Text('-',style:TextStyle(color: Colors.black,fontSize: SizeConfig.blockSizeVertical*5,),),
+                    ),
+                  ),
+                ),
+                // SizedBox(width: SizeConfig.blockSizeHorizontal*3,),
+                Container(
+                  // color: Colors.white,
+                  height:SizeConfig.blockSizeVertical*6,
+                  width:SizeConfig.blockSizeHorizontal*12,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black12)
+                  ),
+                  child:  Center(
+                    child: Text(count.toString(),style: TextStyle(color: Colors.black,fontSize: SizeConfig.blockSizeVertical*3,),),
+                  ),
+                ),
+                //SizedBox(width: SizeConfig.blockSizeHorizontal*3,),
+                GestureDetector(
+                  onTap: (){
+                    if(count>=1){
+                      setState(() {
+                        count++;
+                      });
+                    }
+                  },
+                  child: Container(
+                    // color: Colors.white,
+                    height:SizeConfig.blockSizeVertical*6,
+                    width:SizeConfig.blockSizeHorizontal*12,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black12)
+                    ),
+                    child:  Center(
+                      child: Text('+',style: TextStyle(color: Colors.black,fontSize: SizeConfig.blockSizeVertical*3,),),
+                    ),
+                  ),
+                ),
+                SizedBox(width: SizeConfig.blockSizeHorizontal*1,),
+                GestureDetector(
+                  onTap: (){},
+                  child: Container(
+                    color: Colors.green[700],
+                    height:SizeConfig.blockSizeVertical*6,
+                    width:SizeConfig.blockSizeHorizontal*28,
+                    child:  Center(
+                      child: Text('Buy Now',style: TextStyle(color: Colors.white,fontSize: SizeConfig.blockSizeVertical*2,),),
+                    ),
+                  ),
+                ),
+                SizedBox(width: SizeConfig.blockSizeHorizontal*1,),
+                GestureDetector(
+                  onTap: (){},
+                  child: Container(
+                    color: Colors.yellow[900],
+                    height:SizeConfig.blockSizeVertical*6,
+                    width:SizeConfig.blockSizeHorizontal*28,
+                    child:  Center(
+                      child: Text('Add to cart',style: TextStyle(color: Colors.white,fontSize: SizeConfig.blockSizeVertical*2,),),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           SizedBox(height: SizeConfig.blockSizeVertical*10,)
         ],
       ),
@@ -206,27 +432,54 @@ class _DescriptionState extends State<Description> {
         ],
       );
     }
-    Widget showRelatedItems(){
+    Widget fetchProductToShowRelatedItems(){
+      return  FutureBuilder<List<ModelOfProduct>>(
+        future:repo.fetchProducts() ,
+        builder: ( context,  snapshot) {
+
+          if(snapshot.hasData){
+            return ListView.builder(
+
+                scrollDirection: Axis.vertical,
+                itemCount:snapshot.data!.length ,
+                itemBuilder: (context,index){
+                  return showRelatedItems(
+                      snapshot.data![index].src.toString()
+                  );
+                }
+            );
+
+          }
+          else{
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+        },
+      );
+    }
+    Widget showRelatedItems(String img1){
       return Padding(
         padding:  EdgeInsets.only(
-            left:SizeConfig.blockSizeHorizontal*10,
-            right: SizeConfig.blockSizeHorizontal*30
+            left:SizeConfig.blockSizeHorizontal*7,
+            //right: SizeConfig.blockSizeHorizontal*30
         ),
         child: Container(
-            height: SizeConfig.blockSizeVertical*35,
-            width: SizeConfig.blockSizeHorizontal*30,
+            height: SizeConfig.blockSizeVertical*41,
+            width: SizeConfig.blockSizeHorizontal*60,
             decoration: BoxDecoration(
                // color: Colors.orange,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.black26)
-        ),
+             ),
           child: Column(
             children: [
               Container(
                 color: Colors.white,
                 height: SizeConfig.blockSizeVertical*15,
                 width: double.infinity,
-                child: Image.network(img),
+                child: Image.network(img1),
               ),
               Padding(
                 padding:  EdgeInsets.only(left: SizeConfig.blockSizeHorizontal*15),
@@ -249,11 +502,14 @@ class _DescriptionState extends State<Description> {
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.only(left:SizeConfig.blockSizeHorizontal*2),
+                padding:  EdgeInsets.only(left:SizeConfig.blockSizeHorizontal*2,top: SizeConfig.blockSizeVertical*1.5),
                 child: Text(map!['title'],style: TextStyle(fontSize: SizeConfig.blockSizeVertical*2.8,fontWeight: FontWeight.bold,color: Colors.orange),),
               ),
               Padding(
-                padding: EdgeInsets.only(left:SizeConfig.blockSizeHorizontal*2),
+                padding: EdgeInsets.only(
+                    left:SizeConfig.blockSizeHorizontal*2,
+                    top: SizeConfig.blockSizeVertical*1
+                ),
                 child: Row(
                   children: [
                     Text("$s${map!['variants'][0]['price'].toString()} ",style: TextStyle(fontSize: SizeConfig.blockSizeVertical*3,fontWeight: FontWeight.bold),),
@@ -263,11 +519,38 @@ class _DescriptionState extends State<Description> {
                   //  Text("${map!['variants'][0]['inventory_item_id'].toString()} ",style: TextStyle(fontSize: SizeConfig.blockSizeVertical*3,fontWeight: FontWeight.bold),)
                   ],
                 ),
+              ),
+              SizedBox(height: SizeConfig.blockSizeVertical*1,),
+              Row(
+                children: [
+                  Padding(
+                    padding:  EdgeInsets.only(
+                        left:SizeConfig.blockSizeHorizontal*2
+                    ),
+                    child: Container(
+                      color: Colors.green,
+                      height: SizeConfig.blockSizeVertical*6,
+                      width: SizeConfig.blockSizeHorizontal*27,
+                      child: const Center(
+                        child: Text('Buy now',style: TextStyle(color: Colors.white),),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: SizeConfig.blockSizeHorizontal*1,),
+                  Container(
+                    color: Colors.yellow[900],
+                    height: SizeConfig.blockSizeVertical*6,
+                    width: SizeConfig.blockSizeHorizontal*27,
+                    child: const Center(
+                      child: Text('Add to cart',style: TextStyle(color: Colors.white),),
+                    ),
+                  )
+                ],
               )
 
             ],
           ),
-    ),
+        ),
       );
     }
 }

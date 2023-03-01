@@ -17,18 +17,14 @@ class _HomePageState extends State<HomePage> {
   String img='https://cdn.shopify.com/s/files/1/0557/6890/7820/products/DHA-99KWRside-alahfidh-water-dispenser-left-perspective_jpg.webp?v=1673169002';
   String s = "\$";
   int count=1;
-  loadMap()async{
-    map= await repo.fetchMap();
-    setState(() {
-      map;
-    });
-    print("map is $map");
-  }
+
   @override
   void initState() {
-   setState(() {
-     loadMap();
-   });
+    repo.fetchMap().then((value){
+      setState(() {
+        map=value;
+      });
+    });
     // TODO: implement initState
     super.initState();
   }
