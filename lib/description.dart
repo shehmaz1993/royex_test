@@ -312,7 +312,9 @@ class _DescriptionState extends State<Description> {
                 showRelatedItems(img),
                 showRelatedItems(img),
                 showRelatedItems(img),
-                showRelatedItems(img)
+                showRelatedItems(img),
+                //showRelatedItems(img)
+                //showRelatedItems(img)
               ],
             ),
           ),
