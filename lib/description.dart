@@ -309,8 +309,7 @@ class _DescriptionState extends State<Description> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-              //fetchProductToShowRelatedItems(),
-               // fetchProductToShowRelatedItems(),
+                showRelatedItems(img),
                 showRelatedItems(img),
                 showRelatedItems(img),
                 showRelatedItems(img)
@@ -402,7 +401,7 @@ class _DescriptionState extends State<Description> {
               ],
             ),
           ),
-          SizedBox(height: SizeConfig.blockSizeVertical*10,)
+          SizedBox(height: SizeConfig.blockSizeVertical*3,)
         ],
       ):const Center(
         child: CircularProgressIndicator(),
