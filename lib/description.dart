@@ -23,9 +23,11 @@ class _DescriptionState extends State<Description> {
     @override
   void initState() {
      repo.fetchMap().then((value){
-       setState(() {
-         map=value;
-       });
+       if(map==null){
+         setState(() {
+           map=value;
+         });
+       }
      });
      // fetchMap();
     // TODO: implement initState
@@ -35,8 +37,46 @@ class _DescriptionState extends State<Description> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-     // appBar: AppBar(title: Text('description'),),
-      body: ListView(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100.0),
+        child: AppBar(
+          title: Padding(
+              padding:  EdgeInsets.only(top:SizeConfig.blockSizeVertical*4.5,bottom: SizeConfig.blockSizeVertical*2,right: SizeConfig.blockSizeHorizontal*14),
+              child:Row(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.shopping_basket_outlined,size: SizeConfig.blockSizeVertical*6,),
+                  SizedBox(width: SizeConfig.blockSizeHorizontal*2,),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:  [
+                      FittedBox(child: Text(map!['vendor'],style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+                      const FittedBox(child: Text('M A R K E T',style: TextStyle(color: Colors.white,),)),
+                    ],
+                  )
+                ],
+              )
+          ),
+          backgroundColor: Colors.yellow[900],
+          centerTitle: true,
+          leading: Padding(
+            padding:  EdgeInsets.only(top:SizeConfig.blockSizeVertical*1.5,bottom: SizeConfig.blockSizeVertical*4),
+            child: IconButton(
+              onPressed: (){
+                // Navigator.of(context).push(MaterialPageRoute(builder: (context) =>OrderRev()));
+                //  Navigator. of(context). pop();
+              },
+              icon:Padding(
+                padding: EdgeInsets.only(top:SizeConfig.blockSizeVertical*0.8),
+                child: const Icon(Icons.arrow_back_ios,color: Colors.white,),
+              ) ,
+
+            ),
+          ),
+        ),
+      ),
+      body:map!=null? ListView(
         children: [
           Stack(
             children: [
@@ -137,7 +177,7 @@ class _DescriptionState extends State<Description> {
                   height: SizeConfig.blockSizeVertical*15,
                   width: SizeConfig.blockSizeHorizontal*70,
                   //color: Colors.red,
-                  child: fetchProductToShow(),
+                  child: fetchProductToShowTopForSweep(),
                 ),
               ),
 
@@ -269,11 +309,15 @@ class _DescriptionState extends State<Description> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-               fetchProductToShowRelatedItems(),
-                fetchProductToShowRelatedItems(),
+              //fetchProductToShowRelatedItems(),
+               // fetchProductToShowRelatedItems(),
+                showRelatedItems(img),
+                showRelatedItems(img),
+                showRelatedItems(img)
               ],
             ),
           ),
+          SizedBox(width: SizeConfig.blockSizeHorizontal*3,),
           Padding(
             padding:  EdgeInsets.only( left:SizeConfig.blockSizeHorizontal*3),
             child: Row(
@@ -360,13 +404,15 @@ class _DescriptionState extends State<Description> {
           ),
           SizedBox(height: SizeConfig.blockSizeVertical*10,)
         ],
+      ):const Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }
   Widget fetchProductToShow(){
     return  FutureBuilder<List<ModelOfProduct>>(
       future:repo.fetchProducts() ,
-      builder: ( context,  snapshot) {
+      builder: ( context, snapshot) {
 
         if(snapshot.hasData){
           return ListView.builder(
@@ -392,14 +438,53 @@ class _DescriptionState extends State<Description> {
       },
     );
   }
+    Widget fetchProductToShowTopForSweep(){
+      return  FutureBuilder<List<ModelOfProduct>>(
+        future:repo.fetchProducts() ,
+        builder: ( context,  snapshot) {
+
+          if(snapshot.hasData){
+            return Swiper(
+                control:  SwiperControl(color: Colors.black38),
+                viewportFraction: 0.4,
+                itemHeight: SizeConfig.blockSizeVertical*5,
+                itemWidth: SizeConfig.blockSizeHorizontal*50,
+                scrollDirection: Axis.horizontal,
+                itemCount:snapshot.data!.length ,
+                itemBuilder: (context,index){
+                  return showProduct(
+                      snapshot.data![index].productId.toString(),
+                      snapshot.data![index].id.toString(),
+                      snapshot.data![index].src.toString()
+                  );
+                }
+            );
+
+          }
+          else{
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+        },
+      );
+    }
     Widget showProduct(String productId,String id,String image){
 
       return  SizedBox(
         height: SizeConfig.blockSizeVertical*20,
         width: SizeConfig.blockSizeHorizontal*80,
-        child: Card(
-          elevation: 10,
-          child:Image.network(image,fit: BoxFit.fill,),
+        child: GestureDetector(
+          onTap:(){
+            setState(() {
+              img=image;
+            });
+          },
+          child: Card(
+            elevation: 10,
+            child:Image.network(image,fit: BoxFit.fill,),
+          ),
         ),
       );
     }
@@ -507,7 +592,7 @@ class _DescriptionState extends State<Description> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    left:SizeConfig.blockSizeHorizontal*2,
+                    left:SizeConfig.blockSizeHorizontal*5,
                     top: SizeConfig.blockSizeVertical*1
                 ),
                 child: Row(

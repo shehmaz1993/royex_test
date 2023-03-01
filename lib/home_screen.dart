@@ -13,7 +13,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Repository repo=Repository();
   Map<String,dynamic>? map;
-  //=<String, dynamic>{};
   String img='https://cdn.shopify.com/s/files/1/0557/6890/7820/products/DHA-99KWRside-alahfidh-water-dispenser-left-perspective_jpg.webp?v=1673169002';
   String s = "\$";
   int count=1;
@@ -21,9 +20,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     repo.fetchMap().then((value){
-      setState(() {
-        map=value;
-      });
+      if(map==null){
+        setState(() {
+          map=value;
+        });
+      }
     });
     // TODO: implement initState
     super.initState();
@@ -322,7 +323,7 @@ class _HomePageState extends State<HomePage> {
 
         if(snapshot.hasData){
           return Swiper(
-              control: const SwiperControl(),
+              control:  SwiperControl(color: Colors.black38),
               viewportFraction: 0.4,
               itemHeight: SizeConfig.blockSizeVertical*5,
               itemWidth: SizeConfig.blockSizeHorizontal*50,
