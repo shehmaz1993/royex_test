@@ -317,9 +317,9 @@ class _DescriptionState extends State<Description> {
               ],
             ),
           ),
-          SizedBox(width: SizeConfig.blockSizeHorizontal*3,),
+          SizedBox(height: SizeConfig.blockSizeVertical*3,),
           Padding(
-            padding:  EdgeInsets.only( left:SizeConfig.blockSizeHorizontal*3),
+            padding:  EdgeInsets.only( left:SizeConfig.blockSizeHorizontal*5),
             child: Row(
               children: [
                 GestureDetector(
