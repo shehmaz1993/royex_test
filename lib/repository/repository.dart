@@ -1,7 +1,5 @@
 
-//import 'package:dio/dio.dart' as Dio;
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:royex_test/Models/model_class.dart';
 import 'package:http/http.dart' as http;
