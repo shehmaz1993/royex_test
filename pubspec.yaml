@@ -30,7 +30,8 @@ environment:
 dependencies:
   http: ^0.13.5
   flutter_swiper_plus: ^2.0.4
-  flutter_html: ^2.2.1
+  webview_flutter_plus: ^0.3.0+2
+
   flutter:
     sdk: flutter
 

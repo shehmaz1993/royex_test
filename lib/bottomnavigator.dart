@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:royex_test/description.dart';
 import 'package:royex_test/notofication.dart';
+import 'package:royex_test/webview.dart';
 
 import 'home_screen.dart';
 import 'more.dart';
@@ -17,7 +18,7 @@ class _BottomNavigatorPageState extends State<BottomNavigatorPage> {
   var pages = [
     const HomePage(),
     const Description(),
-    const NotificationPage(),
+    const WebPage(),
     const MorePage()
   ];
   @override
@@ -40,7 +41,7 @@ class _BottomNavigatorPageState extends State<BottomNavigatorPage> {
           BottomNavigationBarItem(
               icon:  Icon(Icons.notifications_active_outlined),
               //title: new Text('Order'),
-              label: 'Notification'
+              label: 'WebView'
           ),
           BottomNavigationBarItem(
               icon:  Icon(Icons.view_column_outlined),
